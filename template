@@ -131,7 +131,7 @@
 \pagestyle{fancy}
 \setlength{\headheight}{18pt} 
 \fancyhf{}
-\lhead{\colorbox{black}{\textcolor{white}{\textbf{ N M }}} \ \textbf{NOVA MATH} \ $\vert$ \ 星冉数学教研组}
+\lhead{\colorbox{black}{\textcolor{white}{\textbf{ N M }}} \ \textbf{NOVA MATH} }
 \rhead{\textbf{Chapter Template}}
 \cfoot{\textbf{NOVA MATH STUDIO} \quad \thepage}
 \renewcommand{\headrulewidth}{0.4pt}
