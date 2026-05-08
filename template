@@ -1,0 +1,286 @@
+% ==========================================================
+% ⚠️ IMPORTANT: PLEASE SET COMPILER TO LuaLaTeX OR XeLaTeX IN OVERLEAF
+% ==========================================================
+
+% --- UNIVERSAL PREAMBLE BLOCK ---
+\documentclass[11pt, a4paper]{article}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.2cm, right=2.2cm]{geometry}
+\usepackage{fontspec}
+
+% FIXED: Removed 'bidi=basic' to ensure full compatibility with XeLaTeX in Overleaf
+\usepackage[chinese, provide=*]{babel}
+
+\babelprovide[import, onchar=ids fonts]{chinese}
+\babelprovide[import, onchar=ids fonts]{english}
+
+% Set default/Latin font to Sans Serif in the main (rm) slot
+\babelfont{rm}{Noto Sans}
+% Assign a specific font for Chinese text
+\babelfont[chinese]{rm}{Noto Sans CJK SC}
+
+\usepackage{enumitem}
+\setlist[itemize]{label={$-$}}
+% --------------------------------
+
+% Additional packages for math and formatting
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{setspace}
+\usepackage[dvipsnames]{xcolor} % Enhanced colors
+
+% --- TCOLORBOX FIXES ---
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable} 
+
+\usepackage{tikz}
+\usetikzlibrary{positioning, angles, quotes, arrows.meta, calc, shapes.geometric}
+
+% ==========================================
+% EXACT CIE EXAM MATH FONT STYLE
+% Forces math variables to be Sans-Serif Italic
+% All normal text remains strictly upright
+% ==========================================
+\usepackage[italic]{mathastext}
+
+% ==========================================
+% NOVA MATH BRAND COLORS
+% ==========================================
+\definecolor{NovaBlue}{RGB}{28, 92, 168}
+\definecolor{NovaGreen}{RGB}{35, 140, 95}
+\definecolor{NovaOrange}{RGB}{230, 115, 35}
+\definecolor{NovaGray}{RGB}{245, 246, 248}
+
+% ==========================================
+% CUSTOM BOXES FOR TEACHING (NOVA MATH UI)
+% ==========================================
+
+% 1. Learning Objectives Box (学习目标)
+\newtcolorbox{objectivebox}[1][]{
+    enhanced,
+    colback=NovaGreen!4!white,
+    colframe=NovaGreen!80!black,
+    boxrule=1pt,
+    arc=4pt,
+    fonttitle=\large\bfseries,
+    coltitle=white,
+    title={#1},
+    attach boxed title to top left={xshift=5mm, yshift=-3mm},
+    boxed title style={colback=NovaGreen, sharp corners=south, arc=3pt},
+    before skip=0.6cm, after skip=0.6cm
+}
+
+% 2. Core Concept Box (知识点/定理)
+\newtcolorbox{conceptbox}[1][]{
+    enhanced,
+    colback=NovaBlue!3!white,
+    colframe=NovaBlue,
+    boxrule=1.2pt,
+    arc=3pt,
+    fonttitle=\large\bfseries,
+    coltitle=white,
+    colbacktitle=NovaBlue,
+    title={#1},
+    before skip=0.5cm, after skip=0.5cm
+}
+
+% 3. Example Box (典型例题)
+\newtcolorbox{examplebox}[1][]{
+    enhanced,
+    colback=white,
+    colframe=NovaBlue!80!black,
+    boxrule=0.5pt,
+    leftrule=4pt, % Thick left line
+    arc=2pt,
+    fonttitle=\bfseries,
+    coltitle=black,
+    colbacktitle=NovaGray,
+    title={#1},
+    before skip=0.5cm, after skip=0.5cm
+}
+
+% 4. Warning/Tips Box (易错陷阱/导师秘籍)
+\newtcolorbox{warningbox}[1][]{
+    enhanced,
+    colback=NovaOrange!5!white,
+    colframe=NovaOrange,
+    boxrule=1pt,
+    arc=3pt,
+    fonttitle=\bfseries,
+    coltitle=white,
+    title={#1},
+    before skip=0.4cm, after skip=0.4cm
+}
+
+% ==========================================
+% QUESTION FORMATTING COMMANDS
+% ==========================================
+\newcommand{\cieq}[1]{\par\vspace{0.4cm}\noindent\makebox[0.8cm][l]{\textbf{#1}}}
+\newcommand{\ciesub}[1]{\par\vspace{0.2cm}\noindent\hspace*{0.8cm}\makebox[0.8cm][l]{(#1)}}
+\newcommand{\ciesubsub}[1]{\par\vspace{0.2cm}\noindent\hspace*{1.6cm}\makebox[0.8cm][l]{(#1)}}
+
+% ==========================================
+% HEADER & FOOTER
+% ==========================================
+\pagestyle{fancy}
+\setlength{\headheight}{18pt} 
+\fancyhf{}
+\lhead{\colorbox{black}{\textcolor{white}{\textbf{ N M }}} \ \textbf{NOVA MATH} \ $\vert$ \ 星冉数学教研组}
+\rhead{\textbf{Chapter Template}}
+\cfoot{\textbf{NOVA MATH STUDIO} \quad \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Section formatting
+\titleformat{\section}{\Large\bfseries\color{NovaBlue}}{}{0em}{}[\vspace{-0.2cm}\noindent\rule{\textwidth}{0.8pt}]
+\titleformat{\subsection}{\large\bfseries\color{black}}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{}{0em}{}
+
+\setlength{\parindent}{0pt}
+\renewcommand{\baselinestretch}{1.3} % Comfortable breathing space
+
+\begin{document}
+
+% --- TITLE AREA ---
+\begin{center}
+    {\huge \textbf{【讲义模板】NOVA MATH 高级教辅}} \\ \vspace{0.3cm}
+    {\Large 副标题：这里填写章节或主题 (e.g. Algebra \& Geometry)}
+\end{center}
+\vspace{0.4cm}
+
+% --- 学习目标 ---
+\begin{objectivebox}[$\bigstar$ \ 本节课学习目标 (Learning Objectives)]
+\textbf{通过本节课的 1.5 小时探究，你将学会：}
+\begin{itemize}[itemsep=0.1cm]
+    \item \textbf{Mastery 1:} 理解并在实际中应用模块 \texttt{\textbackslash objectivebox} 的设计。
+    \item \textbf{Mastery 2:} 掌握如何利用 \texttt{\textbackslash conceptbox} 呈现核心数学定理。
+    \item \textbf{Mastery 3:} 学会通过高级的 \texttt{\textbackslash examplebox} 引导学生进行思维推演。
+    \item \textbf{Mastery 4:} 规避常见的考试陷阱 (使用 \texttt{\textbackslash warningbox} 高亮)。
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.6cm}
+\section*{Module 1: 知识点区块展示 (Core Concepts)}
+
+在讲授新的理论、公式或定义时，使用 \textbf{Concept Box}。它具有深蓝色的全包围边框，能给学生传递一种“严谨、必须记忆”的视觉心理暗示。
+
+\begin{conceptbox}[核心定理：勾股定理 (Pythagoras' Theorem)]
+在一个直角三角形 (Right-angled triangle) 中，斜边 (Hypotenuse) 的平方等于两直角边平方的和。
+\vspace{0.2cm}\\
+\textbf{公式表示 (Formula)：}
+\[ a^2 + b^2 = c^2 \]
+\textbf{注：}其中 $c$ 是斜边，且 $c$ 永远是三角形中最长的一条边。
+\end{conceptbox}
+
+为了让排版更具张力，您可以将文字与 TikZ 绘制的高清几何图形并排摆放：
+
+\vspace{0.2cm}
+\begin{minipage}{0.6\textwidth}
+    勾股定理不仅是一个代数公式，更是连接了几何面积的桥梁。\\
+    如右图所示，直角三角形的三条边构成的正方形面积满足：\\
+    $\text{Area}_A + \text{Area}_B = \text{Area}_C$。
+\end{minipage}
+\hfill
+\begin{minipage}{0.35\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=0.8]
+        \draw[thick, fill=NovaBlue!10] (0,0) -- (3,0) -- (0,2) -- cycle;
+        \draw[thick] (0,0.3) -- (0.3,0.3) -- (0.3,0);
+        \node[below] at (1.5,0) {$b = 4$};
+        \node[left] at (0,1) {$a = 3$};
+        \node[above right] at (1.5,1) {$c = 5$};
+    \end{tikzpicture}
+\end{minipage}
+
+\vspace{0.6cm}
+\section*{Module 2: 典型例题与陷阱 (Examples \& Traps)}
+
+\subsection*{2.1 例题演示格式}
+
+在引导学生进行思考时，使用 \textbf{Example Box}。左侧加粗的线条设计源自现代学术论文和网页的引用块（Blockquote），视觉上非常清爽。
+
+\begin{examplebox}[【典型例题 1】基础应用 (Worked Example)]
+已知一个直角三角形的两条直角边分别为 $6\text{ cm}$ 和 $8\text{ cm}$，求其斜边 $x$ 的长度。
+
+\vspace{0.2cm}
+\textbf{思考与解析 (Solution)：}
+\begin{enumerate}[label=\textbf{Step \arabic*.}]
+    \item 明确已知条件：$a = 6$, $b = 8$。
+    \item 代入勾股定理公式：$6^2 + 8^2 = x^2$。
+    \item 计算平方：$36 + 64 = 100 = x^2$。
+    \item 开平方根求得斜边：$x = \sqrt{100} = 10\text{ cm}$。
+\end{enumerate}
+\end{examplebox}
+
+\vspace{0.4cm}
+\subsection*{2.2 易错点高亮}
+
+对于五年级或初中的国际学生，常常会掉入思维陷阱。此时，\textbf{Warning Box} (橙色警示框) 就能派上大用场，它可以强行抓住学生的注意力。
+
+\begin{warningbox}[$\triangle$ NOVA 导师秘籍：高频陷阱预警 (Common Mistakes)]
+很多同学在计算 $x^2 = 25 + 144$ 时，会错误地认为 $x = \sqrt{25} + \sqrt{144} = 5 + 12 = 17$。
+\par\vspace{0.2cm}\noindent
+\textbf{绝对禁止！(Never do this!)} \\
+平方根内的加法\textbf{不能}直接拆开。你必须先完成内部的加法运算：
+\[ x = \sqrt{25 + 144} = \sqrt{169} = 13 \]
+\end{warningbox}
+
+
+\newpage
+\section*{Module 3: 课堂练习排版 (Class Practice)}
+
+当进入课堂练习 (Class Practice) 或作业 (Assignment) 阶段时，我们不再使用封闭的盒子，而是回归最原始、留白最大的清爽排版。
+利用定制的 \texttt{\textbackslash cieq} 和 \texttt{\textbackslash ciesub} 命令，确保题号绝对垂直对齐。
+
+\vspace{0.4cm}
+\noindent\textbf{【课堂限时挑战】 Speed Challenge}
+
+\cieq{1} 基础计算 (Basic Calculations)
+\ciesub{a} Evaluate $15^2 - 12^2$.
+\par\vspace{0.4cm}\noindent\textbf{Answer:} \makebox[4cm]{\dotfill}
+
+\ciesub{b} Write down the value of $\sqrt{169}$.
+\par\vspace{0.4cm}\noindent\textbf{Answer:} \makebox[4cm]{\dotfill}
+
+\cieq{2} 图形综合题 (Geometric Application)
+\par\vspace{0.2cm}\noindent The diagram shows a rectangle $ABCD$ where $AB = 12\text{ cm}$ and $BC = 5\text{ cm}$.
+\par\vspace{0.4cm}
+\begin{center}
+\begin{tikzpicture}[scale=1]
+    \coordinate (A) at (0,2);
+    \coordinate (B) at (4,2);
+    \coordinate (C) at (4,0);
+    \coordinate (D) at (0,0);
+    
+    \draw[thick] (A) -- (B) node[midway, above] {$12\text{ cm}$} -- (C) -- (D) -- cycle;
+    \draw[thick, dashed, NovaBlue] (A) -- (C);
+    
+    \node[above left] at (A) {$A$};
+    \node[above right] at (B) {$B$};
+    \node[below right] at (C) {$C$};
+    \node[below left] at (D) {$D$};
+    \node[right] at (4,1) {$5\text{ cm}$};
+\end{tikzpicture}
+\end{center}
+
+\ciesub{a} Calculate the length of the diagonal $AC$. (求对角线 $AC$ 的长度)
+\par\vspace{0.6cm}\noindent\textbf{Working:} \makebox[10cm]{\dotfill}
+\par\vspace{0.4cm}\noindent\makebox[12cm]{\dotfill}
+\par\vspace{0.4cm}\noindent\textbf{Answer:} $AC =$ \makebox[2.5cm]{\dotfill} cm
+
+\ciesub{b} Point $M$ is the exact midpoint of $AC$. What is the distance from $A$ to $M$?
+\par\vspace{0.6cm}\noindent\textbf{Working:} \makebox[10cm]{\dotfill}
+\par\vspace{0.4cm}\noindent\textbf{Answer:} $AM =$ \makebox[2.5cm]{\dotfill} cm
+
+\vspace{1.5cm}
+\begin{center}
+    \textbf{\color{NovaBlue} ----- End of Template (讲义模板结束) -----}
+\end{center}
+
+\end{document}
